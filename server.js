@@ -16,10 +16,10 @@ app.use(fileUpload({
 
 
 // Connect to mongodb
-const URI = process.env.MONGODB_URL
+//const URI = process.env.MONGODB_URL
 const monDB_url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.nonze.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
 
-mongoose.connect(URI || monDB_url, {
+mongoose.connect(monDB_url, {
     useCreateIndex: true,
     useFindAndModify: false,
     useNewUrlParser: true,
