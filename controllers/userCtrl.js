@@ -28,7 +28,6 @@ const userCtrl = {
       const refreshToken = createRefreshToken({ id: newUser._id });
 
       res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
         path: '/user/refresh_token',
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7d
       })
@@ -55,7 +54,6 @@ const userCtrl = {
       const refreshToken = createRefreshToken({ id: user._id });
 
       res.cookie('refreshToken', refreshToken, {
-        httpOnly: true,
         path: '/user/refresh_token',
         maxAge: 7 * 24 * 60 * 60 * 1000 // 7d
       })
