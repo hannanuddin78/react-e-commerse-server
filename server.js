@@ -1,11 +1,12 @@
 require("dotenv").config();
 const express = require("express");
-const app = express();
 const mongoose = require("mongoose");
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const path = require('path');
+
+const app = express();
 
 app.use(express.json())
 app.use(cookieParser())
@@ -36,10 +37,10 @@ if(process.env.NODE_ENV === 'production'){
     })
 }
 
-const port = process.env.PORT || 7000;
+const PORT = process.env.PORT || 7000;
 
 app.get('/', (req, res) => {
-    res.json(`Hello World,,connect my server is running ${port}`)
+    res.json(`Hello World,,connect my server is running ${PORT}`)
 })
 
 // Routes
@@ -49,6 +50,6 @@ app.use('/api', require('./routes/upload'))
 app.use('/api', require('./routes/productRouter'))
 app.use('/api', require('./routes/paymentRouter'))
 
-app.listen(port, () =>{
-    console.log('Server is running on port', port)
+app.listen(PORT, () =>{
+    console.log('Server is running on port', PORT)
 })
