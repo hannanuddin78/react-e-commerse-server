@@ -1,4 +1,4 @@
-const dotenv = require("dotenv");
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
@@ -7,8 +7,6 @@ const fileUpload = require('express-fileupload');
 const cookieParser = require('cookie-parser');
 const path = require('path');
 
-dotenv.config();
-
 app.use(express.json())
 app.use(cookieParser())
 app.use(cors())
@@ -16,9 +14,12 @@ app.use(fileUpload({
     useTempFiles: true
 }))
 
+
 // Connect to mongodb
 const URI = process.env.MONGODB_URL
-mongoose.connect(URI, {
+const monDB_url = `mongodb+srv://${process.env.DB_USER}:${process.env.DB_PASSWORD}@cluster0.nonze.mongodb.net/${process.env.DB_NAME}?retryWrites=true&w=majority`
+
+mongoose.connect(URI || monDB_url, {
     useCreateIndex: true,
     useFindAndModify: false,
     useNewUrlParser: true,
@@ -35,10 +36,10 @@ if(process.env.NODE_ENV === 'production'){
     })
 }
 
-const PORT = process.env.PORT || 7000;
+const port = process.env.PORT || 7000;
 
 app.get('/', (req, res) => {
-    res.json({ msg: `server is running ${PORT}` })
+    res.json(`Hello World,,connect my server is running ${port}`)
 })
 
 // Routes
@@ -48,6 +49,6 @@ app.use('/api', require('./routes/upload'))
 app.use('/api', require('./routes/productRouter'))
 app.use('/api', require('./routes/paymentRouter'))
 
-app.listen(PORT, () =>{
-    console.log('Server is running on port', PORT)
+app.listen(port, () =>{
+    console.log('Server is running on port', port)
 })
